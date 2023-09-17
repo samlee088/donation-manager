@@ -10,3 +10,13 @@ export const addDonation = (donationEntry) => {
     body: JSON.stringify(donationEntry),
   });
 };
+
+export const addDistribution = (distributionEntry) => {
+  return fetch(`${BASE_URL}/api/distributions/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(distributionEntry),
+  });
+};

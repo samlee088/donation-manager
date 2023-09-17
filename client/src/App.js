@@ -1,17 +1,22 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DonationsSummary from "screens/DonationsSummary";
-import DonationsTransactions from "screens/DonationsTransactions";
+import DonationsRegistrations from "screens/DonationsRegistrations";
+import DonationsDistributions from "screens/DonationsDistributions";
 
 function App() {
   return (
-    <div className="app">
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="app">
         <Routes>
-          <Route path="/" element={<DonationsTransactions />} />
+          <Route path="/" element={<DonationsRegistrations />} />
           <Route path="/donationSummary" element={<DonationsSummary />} />
+          <Route
+            path="/donationDistribution"
+            element={<DonationsDistributions />}
+          />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

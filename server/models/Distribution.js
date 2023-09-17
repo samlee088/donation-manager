@@ -5,7 +5,7 @@ const distributionSchema = new Schema({
     type: String,
     required: true,
   },
-  distributionAmount: {
+  distributionQuantity: {
     type: Number,
     required: true,
   },
