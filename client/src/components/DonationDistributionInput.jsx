@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import { addDistribution, getCurrentInventory } from 'utils/api';
 
-const DonationDistributionInput = ({errorMessageState}) => {
+const DonationDistributionInput = ({errorMessageState, onSuccess}) => {
 
   const distributionQuantityRef = useRef(null);
   const distributionDateRef = useRef(null);
@@ -41,6 +41,8 @@ const DonationDistributionInput = ({errorMessageState}) => {
                 })
 
                 console.log(addDistributionResponse);
+
+                onSuccess();
             }
             
         } catch(error) {

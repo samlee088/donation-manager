@@ -7,9 +7,15 @@ import React, { useState } from 'react'
 const DonationsDistributions = () => {
   
   const [errorAmountMessage, setErrorAmountMessage] = useState(false);
+  const [refreshCategorySummary, setRefreshCategorySummary] = useState(false);
 
   const updateErrorMessage = (newErrorMessage) => {
     setErrorAmountMessage(newErrorMessage);
+  };
+
+  const handleDistributionSuccess = () => {
+    // Set the state to trigger a refresh of CategorySummary
+    setRefreshCategorySummary(!refreshCategorySummary);
   };
 
   const errorText = <Box>
@@ -19,9 +25,9 @@ const DonationsDistributions = () => {
   return (
     <div>
         <Title title='Donations Distributions' />
-        <DonationDistributionInput errorMessageState = {updateErrorMessage}/>
+        <DonationDistributionInput errorMessageState = {updateErrorMessage} onSuccess={handleDistributionSuccess}/>
         {errorAmountMessage && errorText}
-        <CategorySummary />
+        <CategorySummary forceRefresh={refreshCategorySummary} />
 
       
     </div>

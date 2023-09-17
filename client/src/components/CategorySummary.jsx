@@ -3,7 +3,7 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Box, CircularProgress } from '@mui/material';
 import { getCurrentInventory } from 'utils/api';
 
-const CategorySummary = () => {
+const CategorySummary = ({ forceRefresh }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,6 +21,21 @@ const CategorySummary = () => {
     };
     fetchData();
   }, []);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getCurrentInventory();
+        const inventoryData = await response.json();
+        setData(inventoryData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [forceRefresh]);
 
   const columns = [
     {
