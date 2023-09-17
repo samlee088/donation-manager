@@ -20,3 +20,11 @@ export const addDistribution = (distributionEntry) => {
     body: JSON.stringify(distributionEntry),
   });
 };
+
+export const getCurrentInventory = () => {
+  return fetch(`${BASE_URL}/api/donations/getAll`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

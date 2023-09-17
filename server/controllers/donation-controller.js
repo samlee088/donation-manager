@@ -36,3 +36,15 @@ export const addDonation = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+export const getInventory = async (req, res) => {
+  try {
+    const inventory = await Inventory.find();
+
+    return res.status(200).json(inventory);
+  } catch (error) {
+    console.log(error);
+    console.log("cant get current inventory");
+    res.status(500).json(error);
+  }
+};
