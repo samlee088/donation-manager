@@ -1,13 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import { addDistribution } from 'utils/api';
+import { addDistribution, getCurrentInventory } from 'utils/api';
 
-const DonationDistributionInput = () => {
+const DonationDistributionInput = ({errorMessageState}) => {
 
   const distributionQuantityRef = useRef(null);
   const distributionDateRef = useRef(null);
@@ -17,25 +17,35 @@ const DonationDistributionInput = () => {
       event.preventDefault();
 
       try{
-          const distributionQuantity = distributionQuantityRef.current.value;
-          const distributionDate = distributionDateRef.current.value;
-          const distributionCategory = distributionCategoryRef.current.value;
 
-          console.log('Donation Amount:', distributionQuantity);
-          console.log('Donation Date:', distributionDate);
-          console.log('Donation Category:', distributionCategory);
+        errorMessageState(false);
 
-          const response = await addDistribution({
-            distributionCategory: distributionCategory,
-            distributionQuantity: distributionQuantity,
-            distributionDate: distributionDate,
-          })
+            const response = await getCurrentInventory();
+            const currentInventory = await response.json();
 
-          console.log(response);
+            const distributionQuantity = distributionQuantityRef.current.value;
+            const distributionDate = distributionDateRef.current.value;
+            const distributionCategory = distributionCategoryRef.current.value;
 
-      } catch(error) {
-          console.error(error);
-      }
+            const distributionCategoryInventory = currentInventory.find((inventory) => inventory.inventoryCategory === distributionCategory)
+
+            if (distributionQuantity > distributionCategoryInventory.inventoryValue ) {
+                console.log('not enough inventory')
+                errorMessageState(true);
+                return
+            } else {
+                const addDistributionResponse = await addDistribution({
+                distributionCategory: distributionCategory,
+                distributionQuantity: distributionQuantity,
+                distributionDate: distributionDate,
+                })
+
+                console.log(addDistributionResponse);
+            }
+            
+        } catch(error) {
+            console.error(error);
+        }
      
 
       

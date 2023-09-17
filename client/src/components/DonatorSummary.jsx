@@ -28,11 +28,6 @@ const DonatorSummary = () => {
         fetchData();
   }, []);
 
-
-  useEffect(() => {
-    console.log('Data:', data);
-  }, [data]);
-
   const columns = [
     {
       field: "Donator",
