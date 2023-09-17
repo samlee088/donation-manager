@@ -28,3 +28,11 @@ export const getCurrentInventory = () => {
     },
   });
 };
+
+export const getAllDonations = () => {
+  return fetch(`${BASE_URL}/api/donations/getAllDonations`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

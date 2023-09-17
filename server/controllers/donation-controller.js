@@ -48,3 +48,51 @@ export const getInventory = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+export const getAllDonations = async (req, res) => {
+  try {
+    const donations = await Donation.find(); // Fetch your donation data
+
+    // Initialize an array to hold the transformed data
+    const transformedData = [];
+
+    // Iterate through each donation
+    donations.forEach((donation) => {
+      const donator = donation.donorName;
+      const donationCategory = donation.donationCategory;
+      const donationQuantity = donation.donationQuantity;
+
+      // Find or create a row for the donator in the transformed data
+      let donatorRow = transformedData.find((row) => row.Donator === donator);
+
+      if (!donatorRow) {
+        donatorRow = {
+          Donator: donator,
+          Clothing: 0,
+          Money: 0,
+          Other: 0,
+          Toys: 0,
+        };
+        transformedData.push(donatorRow);
+      }
+
+      // Update the quantity in the corresponding category column
+      if (donationCategory === "Clothing") {
+        donatorRow.Clothing += donationQuantity;
+      } else if (donationCategory === "Money") {
+        donatorRow.Money += donationQuantity;
+      } else if (donationCategory === "Other") {
+        donatorRow.Other += donationQuantity;
+      } else if (donationCategory === "Toys") {
+        donatorRow.Toys += donationQuantity;
+      }
+    });
+
+    // Return the transformed data, not scrubbedDonations
+    return res.status(200).json(transformedData);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get all donations");
+    res.status(500).json(error);
+  }
+};

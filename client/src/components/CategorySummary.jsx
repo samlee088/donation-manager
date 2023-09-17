@@ -11,7 +11,7 @@ const CategorySummary = () => {
     const fetchData = async () => {
       try {
         const response = await getCurrentInventory();
-        const inventoryData = await response.json(); // Extract JSON data from the response
+        const inventoryData = await response.json();
         setData(inventoryData);
         setIsLoading(false);
       } catch (error) {
@@ -21,11 +21,6 @@ const CategorySummary = () => {
     };
     fetchData();
   }, []);
-
-  // Log data to the console to check its structure
-  useEffect(() => {
-    console.log('Data:', data);
-  }, [data]);
 
   const columns = [
     {
@@ -50,7 +45,7 @@ const CategorySummary = () => {
             mt="40px"
             height="75vh"
             sx={{
-              // Your styling here
+           
             }}
           >
             <DataGrid
