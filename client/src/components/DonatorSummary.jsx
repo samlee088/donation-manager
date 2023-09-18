@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Box, CircularProgress } from '@mui/material';
 import { getAllDonations } from 'utils/api';
+import { Colors } from 'constants/colors';
 
 const DonatorSummary = () => {
   const [data, setData] = useState([]);
@@ -68,7 +69,28 @@ const DonatorSummary = () => {
           mt="40px"
           height="75vh"
           sx={{
-          
+            "& .MuiDataGrid-root": {
+              border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+          },
+          "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: Colors.primary400,
+              color: Colors.primary50,
+              borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: Colors.primary50,
+          },
+          "& .MuiDataGrid-footerContainer": {
+              backgroundColor: Colors.primary100,
+              color: Colors.primary50,
+              borderTop: "none",
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${Colors.primary400} !important`,
+          },
           }}
         >
           <DataGrid
