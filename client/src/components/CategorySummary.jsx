@@ -8,35 +8,29 @@ const CategorySummary = ({ forceRefresh }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const fetchData = async () => {
+    try {
+      const response = await getCurrentInventory();
+      const inventoryData = await response.json();
+      setData(inventoryData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getCurrentInventory();
-        const inventoryData = await response.json();
-        setData(inventoryData);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
-      }
-    };
     fetchData();
   }, []);
   
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getCurrentInventory();
-        const inventoryData = await response.json();
-        setData(inventoryData);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
-      }
-    };
     fetchData();
   }, [forceRefresh]);
+
+
+
 
   const columns = [
     {
