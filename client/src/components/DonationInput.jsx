@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { addDonation } from 'utils/api';
 
 
-const DonationInput = () => {
+const DonationInput = ({onSuccess}) => {
 
     const donorNameRef = useRef(null);
     const donationQuantityRef = useRef(null);
@@ -39,6 +39,7 @@ const DonationInput = () => {
             })
 
             if(response.status === 200) {
+                onSuccess();
                 setDonationStatus(`Donation from ${donorName} successful for ${donationQuantity}`)
                 console.log('successful donation')
             } else {

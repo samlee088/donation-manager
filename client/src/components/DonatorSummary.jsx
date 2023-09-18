@@ -19,7 +19,7 @@ const DonatorSummary = () => {
           id: index + 1, 
         }));
 
-    setData(dataWithIds);
+        setData(dataWithIds);
             setIsLoading(false);
           } catch (error) {
             console.error('Error fetching data:', error);

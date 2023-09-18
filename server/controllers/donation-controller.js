@@ -96,3 +96,15 @@ export const getAllDonations = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+export const getAllDonationTransactions = async (req, res) => {
+  try {
+    const donations = await Donation.find(); // Fetch your donation data
+
+    return res.status(200).json(donations);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get all donations transactions");
+    res.status(500).json(error);
+  }
+};
