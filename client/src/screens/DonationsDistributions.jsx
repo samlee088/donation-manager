@@ -8,15 +8,19 @@ const DonationsDistributions = () => {
   
   const [errorAmountMessage, setErrorAmountMessage] = useState(false);
   const [refreshCategorySummary, setRefreshCategorySummary] = useState(false);
+  const [distributionStatus, setDistributionStatus] = useState('');
 
   const updateErrorMessage = (newErrorMessage) => {
     setErrorAmountMessage(newErrorMessage);
   };
 
   const handleDistributionSuccess = () => {
-    // Set the state to trigger a refresh of CategorySummary
     setRefreshCategorySummary(!refreshCategorySummary);
   };
+
+  const transactionStatusHandler = (transactionResponse) => {
+    setDistributionStatus(transactionResponse)
+  }
 
   const errorText = <Box>
     <h1> Distribution amount cannot be greater than current inventory</h1>
@@ -25,8 +29,13 @@ const DonationsDistributions = () => {
   return (
     <div>
         <Title title='Donations Distributions' />
-        <DonationDistributionInput errorMessageState = {updateErrorMessage} onSuccess={handleDistributionSuccess}/>
-        {errorAmountMessage && errorText}
+        <DonationDistributionInput errorMessageState = {updateErrorMessage} onSuccess={handleDistributionSuccess} transactionStatus={transactionStatusHandler}/>
+        <Box sx={{ textAlign: 'center' }}>
+          {errorAmountMessage && errorText}
+        </Box>
+        <Box sx={{ textAlign: 'center' }}>
+          {distributionStatus}
+        </Box>
         <CategorySummary forceRefresh={refreshCategorySummary} />
 
       
