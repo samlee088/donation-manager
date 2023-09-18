@@ -21,7 +21,7 @@ const DonationInput = () => {
         event.preventDefault();
 
         try{
-            const donorName = donorNameRef.current.value;
+            const donorName = donorNameRef.current.value.trim();
             const donationQuantity = donationQuantityRef.current.value;
             const donationDate = donationDateRef.current.value;
             const donationCategory = donationCategoryRef.current.value;

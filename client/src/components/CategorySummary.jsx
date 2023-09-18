@@ -30,8 +30,6 @@ const CategorySummary = ({ forceRefresh }) => {
   }, [forceRefresh]);
 
 
-
-
   const columns = [
     {
       field: "inventoryCategory",
