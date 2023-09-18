@@ -1,22 +1,38 @@
-import React from 'react'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
-const NavigationBar = () => {
+const pages = [
+  { name: "Registrations", link: '/' },
+  { name: "Distributions", link: 'donationDistribution' },
+  { name: "Summary", link: 'donationSummary' }
+];
+
+function NavigationBar() {
+
   return (
-    <>
-      <Navbar bg="primary" data-bs-theme="dark">
-        <Container>
-          <Nav className="me-auto">
-            <Nav.Link href="/">Registrations</Nav.Link>
-            <Nav.Link href="donationDistribution">Distributions</Nav.Link>
-            <Nav.Link href="donationSummary">Summary</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-    </>
-  )
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          {pages.map((page, index) => (
+              <Button
+                key={index}
+                component={Link}
+                to={page.link}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page.name}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
 }
-
-export default NavigationBar
+export default NavigationBar;
