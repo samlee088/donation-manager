@@ -5,7 +5,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { Colors } from 'constants/colors';
 
 const pages = [
   { name: "Registrations", link: '/' },
