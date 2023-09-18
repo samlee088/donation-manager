@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,6 +15,8 @@ const DonationInput = () => {
     const donationDateRef = useRef(null);
     const donationCategoryRef = useRef(null);
 
+    const [donationStatus, setDonationStatus] = useState('');
+
     const donationSubmissionHandler = async (event) => {
         event.preventDefault();
 
@@ -24,11 +26,6 @@ const DonationInput = () => {
             const donationDate = donationDateRef.current.value;
             const donationCategory = donationCategoryRef.current.value;
 
-            console.log('Donor Name:', donorName);
-            console.log('Donation Amount:', donationQuantity);
-            console.log('Donation Date:', donationDate);
-            console.log('Donation Category:', donationCategory);
-
             const response = await addDonation({
                 donorName: donorName,
                 donationCategory: donationCategory,
@@ -36,18 +33,22 @@ const DonationInput = () => {
                 donationDate: donationDate,
             })
 
-            console.log(response);
+            if(response.status === 200) {
+                setDonationStatus(`Donation from ${donorName} successful for ${donationQuantity}`)
+                console.log('successful donation')
+            } else {
+                setDonationStatus('Error with donation entry');
+            }
 
         } catch(error) {
             console.error(error);
+            setDonationStatus('Error with donation entry');
         }
-       
-
-        
     };
 
   return (
     
+    <Box>
         <Box
         component="form"
         sx={{
@@ -110,6 +111,13 @@ const DonationInput = () => {
             </Box>
             <Button variant="outlined" sx={{margin: 2}} onClick={donationSubmissionHandler}>Submit Donation</Button>
         </Box>
+
+        <Box sx={{ textAlign: 'center',}}>
+        {donationStatus}
+        </Box>
+
+    </Box>
+   
     
   )
 }

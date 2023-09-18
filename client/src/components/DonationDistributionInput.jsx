@@ -40,8 +40,6 @@ const DonationDistributionInput = ({errorMessageState, onSuccess}) => {
                 distributionDate: distributionDate,
                 })
 
-                console.log(addDistributionResponse);
-
                 onSuccess();
             }
             
