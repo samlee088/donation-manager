@@ -5,7 +5,7 @@ import React from 'react'
 const DonationsRegistrations = () => {
   return (
     <div>
-      <Title title='Donation Registrations' />
+      <Title title='Donation Registrations - All Fields are required' />
       <DonationInput/>
     </div>
   )

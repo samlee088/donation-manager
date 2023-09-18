@@ -28,13 +28,16 @@ const DonationsDistributions = () => {
 
   return (
     <div>
-        <Title title='Donations Distributions' />
+        <Title title='Donations Distributions - All Fields are required' />
         <DonationDistributionInput errorMessageState = {updateErrorMessage} onSuccess={handleDistributionSuccess} transactionStatus={transactionStatusHandler}/>
         <Box sx={{ textAlign: 'center' }}>
           {errorAmountMessage && errorText}
         </Box>
         <Box sx={{ textAlign: 'center' }}>
           {distributionStatus}
+        </Box>
+        <Box sx={{mt: 10}}>
+          <h3>Current Available Inventory by category</h3>
         </Box>
         <CategorySummary forceRefresh={refreshCategorySummary} />
 
