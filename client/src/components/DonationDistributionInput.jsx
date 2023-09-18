@@ -29,10 +29,14 @@ const DonationDistributionInput = ({errorMessageState, onSuccess, transactionSta
             const distributionDate = distributionDateRef.current.value;
             const distributionCategory = distributionCategoryRef.current.value;
 
+            if(distributionQuantity < 0) {
+                transactionStatus('Distribution Quantity cannot be less than 0')
+                return;
+            }
+
             const distributionCategoryInventory = currentInventory.find((inventory) => inventory.inventoryCategory === distributionCategory)
 
             if (distributionQuantity > distributionCategoryInventory.inventoryValue ) {
-                console.log('not enough inventory')
                 errorMessageState(true);
                 return
             } else {
