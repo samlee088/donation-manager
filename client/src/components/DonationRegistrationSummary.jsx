@@ -14,7 +14,7 @@ const DonationRegistrationSummary = ( { forceRefresh }) => {
     try {
       const response = await getAllDonationTransactions();
       const donationsData = await response.json();
-      console.log(donationsData)
+   
       const dataWithIds = donationsData.map((row, index) => ({
         ...row,
         id: index + 1, 
