@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import CategorySummary from 'components/CategorySummary'
 import DonationDistributionInput from 'components/DonationDistributionInput'
+import DonationDistributionSummary from 'components/DonationDistributionSummary'
 import Title from 'components/Title'
 import React, { useState } from 'react'
 
@@ -40,6 +41,9 @@ const DonationsDistributions = () => {
           <h3>Current Available Inventory by category</h3>
         </Box>
         <CategorySummary forceRefresh={refreshCategorySummary} />
+        <Box>
+          <DonationDistributionSummary forceRefresh={refreshCategorySummary} />
+        </Box>
 
       
     </div>

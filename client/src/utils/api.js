@@ -44,3 +44,11 @@ export const getAllDonationTransactions = () => {
     },
   });
 };
+
+export const getAllDistributionTransactions = () => {
+  return fetch(`${BASE_URL}/api/distributions/getAllDistributionTransactions`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

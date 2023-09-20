@@ -1,4 +1,4 @@
-import { Distribution, Donation, Inventory } from "../models/index.js";
+import { Donation, Inventory } from "../models/index.js";
 
 export const addDonation = async (req, res) => {
   const newDonationRequestedCategory = req.body.donationCategory;
@@ -99,7 +99,7 @@ export const getAllDonations = async (req, res) => {
 
 export const getAllDonationTransactions = async (req, res) => {
   try {
-    const donations = await Donation.find(); // Fetch your donation data
+    const donations = await Donation.find();
 
     return res.status(200).json(donations);
   } catch (error) {
