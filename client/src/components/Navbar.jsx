@@ -5,6 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Colors } from 'constants/colors';;
 
 const pages = [
   { name: "Registrations", link: '/' },
@@ -12,10 +14,15 @@ const pages = [
   { name: "Summary", link: 'donationSummary' }
 ];
 
+const StyledAppBar = styled(AppBar)`
+  background: linear-gradient(to right, #4b2e83, #e8e3d3);
+`;
+
+
 function NavigationBar() {
 
   return (
-    <AppBar position="sticky">
+    <StyledAppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -32,7 +39,7 @@ function NavigationBar() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </StyledAppBar>
   );
 }
 export default NavigationBar;
