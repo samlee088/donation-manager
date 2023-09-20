@@ -6,7 +6,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Colors } from 'constants/colors';;
 
 const pages = [
   { name: "Registrations", link: '/' },
@@ -22,7 +21,7 @@ const StyledAppBar = styled(AppBar)`
 function NavigationBar() {
 
   return (
-    <StyledAppBar position="static">
+    <StyledAppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
