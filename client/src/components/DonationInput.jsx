@@ -26,8 +26,8 @@ const DonationInput = ({onSuccess}) => {
             const donationDate = donationDateRef.current.value;
             const donationCategory = donationCategoryRef.current.value;
 
-            if(donationQuantity < 0) {
-                setDonationStatus(`Donation amount cannot be less than 0`)
+            if(donationQuantity <= 0) {
+                setDonationStatus(`Donation quantity must be greater than 0`)
                 return;
             }
 

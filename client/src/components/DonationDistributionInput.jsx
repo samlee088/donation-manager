@@ -29,8 +29,8 @@ const DonationDistributionInput = ({errorMessageState, onSuccess, transactionSta
             const distributionDate = distributionDateRef.current.value;
             const distributionCategory = distributionCategoryRef.current.value;
 
-            if(distributionQuantity < 0) {
-                transactionStatus('Distribution Quantity cannot be less than 0')
+            if(distributionQuantity <= 0) {
+                transactionStatus('Distribution quantity must be greater than 0')
                 return;
             }
 
