@@ -16,6 +16,13 @@ const DonationInput = ({onSuccess}) => {
     const donationCategoryRef = useRef(null);
 
     const [donationStatus, setDonationStatus] = useState('');
+    const [donorName, setDonorName] = useState('');
+    const [donationQuantity, setDonationQuantity] = useState('');
+    const [donationDate, setDonationDate] = useState('');
+    const [donationCategory, setDonationCategory] = useState('');
+
+
+
 
     const donationSubmissionHandler = async (event) => {
         event.preventDefault();
@@ -26,8 +33,21 @@ const DonationInput = ({onSuccess}) => {
             const donationDate = donationDateRef.current.value;
             const donationCategory = donationCategoryRef.current.value;
 
+            let currentDate = new Date();
+            let donationDateSelected = new Date(donationDate);
+
             if(donationQuantity <= 0) {
                 setDonationStatus(`Donation quantity must be greater than 0`)
+                return;
+            }
+
+            if(donorName === '') {
+                setDonationStatus( `Donor name must not be blank`)
+                return;
+            }
+
+            if (donationDateSelected > currentDate) {
+                setDonationStatus('Donation date cannot be set in the future');
                 return;
             }
 
@@ -38,7 +58,7 @@ const DonationInput = ({onSuccess}) => {
                 donationDate: donationDate,
             })
 
-            if(response.status === 200) {
+            if(response.status >= 200 && response.status < 300) {
                 onSuccess();
                 setDonationStatus(`Donation from ${donorName} successful for ${donationQuantity}`)
                 console.log('successful donation')
@@ -71,6 +91,9 @@ const DonationInput = ({onSuccess}) => {
                 label="Donors Name"
                 autoComplete="off"
                 inputRef={donorNameRef}
+                onChange={(e) => setDonorName(e.target.value)}
+                error={!donorName}
+                helperText={!donorName ? "Required" : " "}
             />
             <TextField
                 id="donationAmount"
@@ -80,6 +103,9 @@ const DonationInput = ({onSuccess}) => {
                 InputLabelProps={{
                     shrink: true,
                 }}
+                onChange={(e) => setDonationQuantity(e.target.value)}
+                error={!donationQuantity}
+                helperText={!donationQuantity ? "Required" : ""}
             />
                 <TextField
                 id="donationDate"
@@ -90,6 +116,9 @@ const DonationInput = ({onSuccess}) => {
                 InputLabelProps={{
                     shrink: true,
                 }}
+                onChange={(e) => setDonationDate(e.target.value)}
+                error={!donationDate}
+                helperText={!donationDate ? "Required" : ""}
             />
             <Box sx={{
                 display: 'flex',
@@ -104,6 +133,9 @@ const DonationInput = ({onSuccess}) => {
                     id="donationCategory"
                     label="Age"
                     inputRef={donationCategoryRef}
+                    onChange={(e) => setDonationCategory(e.target.value)}
+                    error={!donationCategory}
+                    helperText={!donationCategory ? "Required" : ""}
                     >
                         <MenuItem value="">
                             <em>None</em>
