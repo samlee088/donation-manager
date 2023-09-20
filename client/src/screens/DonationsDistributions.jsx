@@ -37,10 +37,13 @@ const DonationsDistributions = () => {
         <Box sx={{ textAlign: 'center' }}>
           {distributionStatus}
         </Box>
-        <Box sx={{mt: 10}}>
+        <Box sx={{mt: 10, textAlign: 'center'}}>
           <h3>Current Available Inventory by category</h3>
         </Box>
         <CategorySummary forceRefresh={refreshCategorySummary} />
+        <Box sx={{mt: 10, textAlign: 'center'}}>
+          <h3>List of all distribution transactions</h3>
+        </Box>
         <Box>
           <DonationDistributionSummary forceRefresh={refreshCategorySummary} />
         </Box>
