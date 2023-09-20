@@ -59,11 +59,14 @@ const DonationInput = ({onSuccess}) => {
             })
 
             if(response.status >= 200 && response.status < 300) {
-                
+
                 donorNameRef.current.value = '';
                 donationQuantityRef.current.value = '';
                 donationDateRef.current.value = '';
-                donationCategoryRef.current.value = '';
+                setDonationCategory('');
+                setDonorName('');
+                setDonationQuantity('');
+                setDonationDate('');
 
                 onSuccess();
                 setDonationStatus(`Donation from ${donorName} successful for ${donationQuantity}`)
@@ -134,13 +137,14 @@ const DonationInput = ({onSuccess}) => {
                 <Box>
                     <InputLabel id="CategorySelectorLabel">Category</InputLabel>
                     <Select
-                    labelId="donationCategoryLabel"
-                    id="donationCategory"
-                    label="Age"
-                    inputRef={donationCategoryRef}
-                    onChange={(e) => setDonationCategory(e.target.value)}
-                    error={!donationCategory}
-                    helperText={!donationCategory ? "Required" : ""}
+                        labelId="donationCategoryLabel"
+                        id="donationCategory"
+                        label="Category"
+                        inputRef={donationCategoryRef}
+                        value={donationCategory}
+                        onChange={(e) => setDonationCategory(e.target.value)}
+                        error={!donationCategory}
+                        helperText={!donationCategory ? "Required" : ""}
                     >
                         <MenuItem value="">
                             <em>None</em>

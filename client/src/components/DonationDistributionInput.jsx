@@ -13,9 +13,11 @@ const DonationDistributionInput = ({errorMessageState, onSuccess, transactionSta
     const distributionDateRef = useRef(null);
     const distributionCategoryRef = useRef(null);
 
-   
+    const [distributionQuantity, setDistributionQuantity] = useState('');
+    const [distributionDate, setDistributionDate] = useState('');
+    const [distributionCategory, setDistributionCategory] = useState('');
 
-    const donationSubmissionHandler = async (event) => {
+    const distributionSubmissionHandler = async (event) => {
       event.preventDefault();
 
       try{
@@ -29,8 +31,17 @@ const DonationDistributionInput = ({errorMessageState, onSuccess, transactionSta
             const distributionDate = distributionDateRef.current.value;
             const distributionCategory = distributionCategoryRef.current.value;
 
+            let currentDate = new Date();
+            let distributionDateSelected = new Date(distributionDate);
+
             if(distributionQuantity <= 0) {
                 transactionStatus('Distribution quantity must be greater than 0')
+                return;
+            }
+
+            
+            if (distributionDateSelected > currentDate) {
+                transactionStatus('distribution date cannot be set in the future');
                 return;
             }
 
@@ -71,20 +82,26 @@ const DonationDistributionInput = ({errorMessageState, onSuccess, transactionSta
         autoComplete="off"
         >
             <TextField
-                id="donationAmount"
+                id="distributionAmount"
                 label="Amount/Quantity"
                 type="number"
                 inputRef={distributionQuantityRef}
+                onChange={(e) => setDistributionQuantity(e.target.value)}
+                error={!distributionQuantity}
+                helperText={!distributionQuantity ? "Required" : ""}
                 InputLabelProps={{
                     shrink: true,
                 }}
             />
                 <TextField
-                id="donationDate"
+                id="distributionDate"
                 label="Date"
                 inputRef={distributionDateRef}
                 type='date'
                 autoComplete="off"
+                onChange={(e) => setDistributionDate(e.target.value)}
+                error={!distributionDate}
+                helperText={!distributionDate ? "Required" : ""}
                 InputLabelProps={{
                     shrink: true,
                 }}
@@ -98,10 +115,14 @@ const DonationDistributionInput = ({errorMessageState, onSuccess, transactionSta
                 <Box>
                     <InputLabel id="CategorySelectorLabel">Category</InputLabel>
                     <Select
-                    labelId="donationCategoryLabel"
-                    id="donationCategory"
-                    label="Age"
-                    inputRef={distributionCategoryRef}
+                        labelId="distributionCategoryLabel"
+                        id="distributionCategory"
+                        label="Category"
+                        inputRef={distributionCategoryRef}
+                        value={distributionCategory}
+                        onChange={(e) => setDistributionCategory(e.target.value)}
+                        error={!distributionCategory}
+                        helperText={!distributionCategory ? "Required" : ""}
                     >
                         <MenuItem value="">
                             <em>None</em>
@@ -113,7 +134,7 @@ const DonationDistributionInput = ({errorMessageState, onSuccess, transactionSta
                     </Select>
                 </Box>
             </Box>
-            <Button variant="outlined" sx={{margin: 2}} onClick={donationSubmissionHandler}>Submit Distribution</Button>
+            <Button variant="outlined" sx={{margin: 2}} onClick={distributionSubmissionHandler}>Submit Distribution</Button>
         </Box>
     
     )
