@@ -59,9 +59,14 @@ const DonationInput = ({onSuccess}) => {
             })
 
             if(response.status >= 200 && response.status < 300) {
+                
+                donorNameRef.current.value = '';
+                donationQuantityRef.current.value = '';
+                donationDateRef.current.value = '';
+                donationCategoryRef.current.value = '';
+
                 onSuccess();
                 setDonationStatus(`Donation from ${donorName} successful for ${donationQuantity}`)
-                console.log('successful donation')
             } else {
                 setDonationStatus('Error with donation entry');
             }

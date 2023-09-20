@@ -28,7 +28,7 @@ const DonationsDistributions = () => {
 
   return (
     <div>
-        <Title title='Donations Distributions - All Fields are required' />
+        <Title title='Donations Distributions' />
         <DonationDistributionInput errorMessageState = {updateErrorMessage} onSuccess={handleDistributionSuccess} transactionStatus={transactionStatusHandler}/>
         <Box sx={{ textAlign: 'center' }}>
           {errorAmountMessage && errorText}

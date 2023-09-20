@@ -14,7 +14,7 @@ const DonationsRegistrations = () => {
 
   return (
     <div>
-      <Title title='Donation Registrations - All Fields are required' />
+      <Title title='Donation Registrations' />
       <DonationInput onSuccess={handleDistributionSuccess}/>
       <DonationRegistrationSummary forceRefresh={refreshCategorySummary} />
     </div>
