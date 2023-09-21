@@ -5,13 +5,13 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Colors } from 'constants/colors';
-import { getAllDonatorsList, getDonatorInformation } from 'utils/api';
+import { getAllDonatorsList, getDonatorInformationCall } from 'utils/api';
 
 const DonatorPieChart = () => {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [donatorSelection, setDonatorSelection] = useState('');
+    const [donatorSelection, setDonatorSelection] = useState('none');
     const [donatorList, setDonatorList] = useState([])
 
     const donatorSelectionRef = useRef('');
@@ -19,12 +19,17 @@ const DonatorPieChart = () => {
     const fetchData = async (usersDonatorSelection) => {
         try {
             
-            const donatorInformationResponse = await getDonatorInformation(usersDonatorSelection);
+            const donatorInformationResponse = await getDonatorInformationCall(usersDonatorSelection);
             const donatorInformationResponseData = await donatorInformationResponse.json();
             console.log(donatorInformationResponseData)
-
-            setData(donatorInformationResponseData);
-            setIsLoading(false);
+            
+            if (Array.isArray(donatorInformationResponseData)) {
+                setData(donatorInformationResponseData);
+                setIsLoading(false);
+            } else {
+                console.error('Data received is not an array:', donatorInformationResponseData);
+                setIsLoading(false);
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
             setIsLoading(false);

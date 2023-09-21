@@ -121,18 +121,48 @@ export const getAllDonatorsList = async (req, res) => {
   }
 };
 
+export const Colors = ["#00A6FB", "#0582CA", "#006494", "#003554", "#051923"];
+
 export const getDonatorInformation = async (req, res) => {
   try {
-    const donorNameRequest = req.params.donatorName;
+    const donorName = req.params.donatorName;
 
-    const dataRetrieve = [];
-    if (donorNameRequest === "") {
+    console.log(donorName);
+
+    console.log("found request");
+
+    let dataRetrieve = [];
+    if (donorName === "none") {
       dataRetrieve = await Donation.find();
     } else {
       dataRetrieve = await Donation.find({ donorName });
     }
 
-    return res.status(200).json(dataRetrieve);
+    let pieChartData = [];
+    let colorsReferenceIndex = 0;
+
+    dataRetrieve.map((donation) => {
+      let category = donation.donationCategory;
+      let existingData = pieChartData.find((data) => data.id === category);
+
+      if (!existingData) {
+        let initial = {
+          id: category,
+          label: category,
+          value: donation.donationQuantity,
+          color: Colors[colorsReferenceIndex],
+        };
+        pieChartData.push(initial);
+      } else {
+        existingData.value += donation.donationQuantity;
+      }
+
+      colorsReferenceIndex = (colorsReferenceIndex + 1) % Colors.length;
+    });
+
+    console.log(pieChartData);
+
+    return res.status(200).json(pieChartData);
   } catch (error) {
     console.log(error);
     console.log("can't get a list of all donators");

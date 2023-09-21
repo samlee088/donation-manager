@@ -61,15 +61,15 @@ export const getAllDonatorsList = () => {
   });
 };
 
-export const getDonatorInformation = (donatorName) => {
+export const getDonatorInformationCall = (donatorName) => {
   return fetch(
-    `${BASE_URL}/api/distributions/getDonatorInformation/${donatorName}`,
+    `${BASE_URL}/api/donations/getDonatorInformation/${donatorName}`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(donatorName),
+      body: JSON.stringify({ donatorName }),
     }
   );
 };
