@@ -108,3 +108,34 @@ export const getAllDonationTransactions = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+export const getAllDonatorsList = async (req, res) => {
+  try {
+    const donators = await Donation.distinct("donorName");
+
+    return res.status(200).json(donators);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get a list of all donators");
+    res.status(500).json(error);
+  }
+};
+
+export const getDonatorInformation = async (req, res) => {
+  try {
+    const donorNameRequest = req.params.donatorName;
+
+    const dataRetrieve = [];
+    if (donorNameRequest === "") {
+      dataRetrieve = await Donation.find();
+    } else {
+      dataRetrieve = await Donation.find({ donorName });
+    }
+
+    return res.status(200).json(dataRetrieve);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get a list of all donators");
+    res.status(500).json(error);
+  }
+};

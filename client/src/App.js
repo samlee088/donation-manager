@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import DonationsSummary from "screens/DonationsSummary";
+import NavigationBar from "components/Navbar";
+import CategorySummaryPage from "screens/CategorySummaryPage";
 import DonationsRegistrations from "screens/DonationsRegistrations";
 import DonationsDistributions from "screens/DonationsDistributions";
-import NavigationBar from "components/Navbar";
+import DonatorSummaryPage from "screens/DonatorSummaryPage";
 
 function App() {
   return (
@@ -11,11 +12,12 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="/" element={<DonationsRegistrations />} />
-          <Route path="/donationSummary" element={<DonationsSummary />} />
           <Route
             path="/donationDistribution"
             element={<DonationsDistributions />}
           />
+          <Route path="/categorySummaryPage" element={<CategorySummaryPage />} />
+          <Route path="/donatorSummaryPage" element={<DonatorSummaryPage />} />
         </Routes>
       </div>
     </BrowserRouter>

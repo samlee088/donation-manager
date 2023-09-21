@@ -10,7 +10,8 @@ import styled from 'styled-components';
 const pages = [
   { name: "Registrations", link: '/' },
   { name: "Distributions", link: 'donationDistribution' },
-  { name: "Summary", link: 'donationSummary' }
+  { name: "Category Summary", link: 'categorySummaryPage' },
+  { name: "Donator Summary", link: 'donatorSummaryPage'}
 ];
 
 const StyledAppBar = styled(AppBar)`

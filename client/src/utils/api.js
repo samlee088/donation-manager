@@ -52,3 +52,24 @@ export const getAllDistributionTransactions = () => {
     },
   });
 };
+
+export const getAllDonatorsList = () => {
+  return fetch(`${BASE_URL}/api/donations/getAllDonatorsList`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const getDonatorInformation = (donatorName) => {
+  return fetch(
+    `${BASE_URL}/api/distributions/getDonatorInformation/${donatorName}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(donatorName),
+    }
+  );
+};
