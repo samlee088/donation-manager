@@ -1,6 +1,4 @@
 import CategoryBarChart from "components/CategoryBarChart";
-import DonatorPieChart from "components/DonatorPieChart";
-import DonatorSummary from "components/DonatorSummary";
 import Title from "components/Title";
 import React from "react";
 import { Box } from "@mui/material";

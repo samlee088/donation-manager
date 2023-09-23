@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { Box, CircularProgress } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
