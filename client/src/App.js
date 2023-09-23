@@ -11,12 +11,20 @@ function App() {
       <div className="app">
         <NavigationBar />
         <Routes>
+          {/* 4 main routes, 2 of them to log data, and 2 of them to display data history */}
+
+          {/* Data Entry Pages */}
           <Route path="/" element={<DonationsRegistrations />} />
           <Route
             path="/donationDistribution"
             element={<DonationsDistributions />}
           />
-          <Route path="/categorySummaryPage" element={<CategorySummaryPage />} />
+
+          {/* Data View Pages */}
+          <Route
+            path="/categorySummaryPage"
+            element={<CategorySummaryPage />}
+          />
           <Route path="/donatorSummaryPage" element={<DonatorSummaryPage />} />
         </Routes>
       </div>

@@ -168,10 +168,8 @@ const CategoryBarChart = () => {
               },
             ]}
             role="application"
-            ariaLabel="Nivo bar chart demo"
-            barAriaLabel={(e) =>
-              e.id + ": " + e.formattedValue + " in country: " + e.indexValue
-            }
+            ariaLabel="Donations by Category bar chart"
+            barAriaLabel={(e) => e.id + ": " + e.formattedValue + e.indexValue}
           />
         </Box>
       )}

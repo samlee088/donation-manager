@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 import DonationLifetimeCategorySummary from "components/DonationLifetimeCategorySummary";
 
 const CategorySummaryPage = () => {
+  /* Page that displays all lifetime donation transactions grouped by category */
   return (
     <Box>
       <Title title="Lifetime Donations by Category" />
