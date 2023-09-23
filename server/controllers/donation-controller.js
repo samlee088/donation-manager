@@ -168,7 +168,16 @@ export const getDonatorInformation = async (req, res) => {
 
 export const getAllDonationsByCategory = async (req, res) => {
   try {
-    let donationsData = await Donation.find();
+    const donationCategory = req.params.categorySelection;
+
+    console.log(donationCategory);
+
+    let donationsData = [];
+    if (donationCategory === "none") {
+      donationsData = await Donation.find();
+    } else {
+      donationsData = await Donation.find({ donationCategory });
+    }
 
     let barGraphData = [];
 

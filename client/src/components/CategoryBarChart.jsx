@@ -14,12 +14,14 @@ const CategoryBarChart = () => {
   const [categoryData, setCategoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryList, setCategoryList] = useState([]);
-  const [categorySelection, setCategorySelection] = useState("");
+  const [categorySelection, setCategorySelection] = useState("none");
   const [donatorList, setDonatorList] = useState([]);
 
   let fetchCategoryData = async (categorySelection) => {
     try {
-      let fetchCategoryResponse = await getAllDonationsByCategory();
+      let fetchCategoryResponse = await getAllDonationsByCategory(
+        categorySelection
+      );
       let fetchCategoryData = await fetchCategoryResponse.json();
 
       setCategoryData(fetchCategoryData);
@@ -56,7 +58,7 @@ const CategoryBarChart = () => {
   useEffect(() => {
     fetchCategoriesList();
     fetchUsersList();
-    fetchCategoryData();
+    fetchCategoryData(categorySelection);
   }, []);
 
   useEffect(() => {
