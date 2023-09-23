@@ -13,8 +13,6 @@ const DonatorPieChart = () => {
   const [donatorSelection, setDonatorSelection] = useState("none");
   const [donatorList, setDonatorList] = useState([]);
 
-  const donatorSelectionRef = useRef("");
-
   const fetchData = async (usersDonatorSelection) => {
     try {
       const donatorInformationResponse = await getDonatorInformationCall(
@@ -51,7 +49,7 @@ const DonatorPieChart = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(donatorSelection);
     fetchUsersList();
   }, []);
 
@@ -75,7 +73,6 @@ const DonatorPieChart = () => {
           labelId="donationCategoryLabel"
           id="donationCategory"
           label="Category"
-          inputRef={donatorSelectionRef}
           value={donatorSelection}
           onChange={(e) => setDonatorSelection(e.target.value)}
           error={!donatorSelection}

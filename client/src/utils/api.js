@@ -81,3 +81,11 @@ export const getAllDonationsByCategory = () => {
     },
   });
 };
+
+export const getAllCategoriesList = () => {
+  return fetch(`${BASE_URL}/api/donations/getAllCategoriesList`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

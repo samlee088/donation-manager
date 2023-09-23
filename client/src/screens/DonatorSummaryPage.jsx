@@ -1,22 +1,21 @@
-import DonatorPieChart from 'components/DonatorPieChart'
-import DonatorSummary from 'components/DonatorSummary'
-import Title from 'components/Title'
-import React from 'react'
-import { Box } from '@mui/material'
+import DonatorPieChart from "components/DonatorPieChart";
+import DonatorSummary from "components/DonatorSummary";
+import Title from "components/Title";
+import React from "react";
+import { Box } from "@mui/material";
 
 const DonatorSummaryPage = () => {
-    return (
-        <div>
-          <Title title='Summary by Donator' />
-          <DonatorSummary />
+  return (
+    <Box>
+      <Title title="All Donations by Donator" />
+      <DonatorSummary />
 
-          <Box mt="80px">
-            <Title title='Donator Chart' />
-            <DonatorPieChart />
-          </Box>
-          
-        </div>
-      )
-}
+      <Box mt="80px">
+        <Title title="Donator Chart" />
+        <DonatorPieChart />
+      </Box>
+    </Box>
+  );
+};
 
-export default DonatorSummaryPage
+export default DonatorSummaryPage;

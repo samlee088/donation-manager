@@ -205,12 +205,22 @@ export const getAllDonationsByCategory = async (req, res) => {
       colorsReferenceIndex = (colorsReferenceIndex + 1) % Colors.length;
     });
 
-    console.log(barGraphData);
-
     res.status(200).json(barGraphData);
   } catch (error) {
     console.log(error);
     console.log("can't get a list of all donators");
+    res.status(500).json(error);
+  }
+};
+
+export const getAllCategoriesList = async (req, res) => {
+  try {
+    const categories = await Donation.distinct("donationCategory");
+
+    res.status(200).json(categories);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get a list of all categories");
     res.status(500).json(error);
   }
 };
