@@ -4,7 +4,7 @@ import { Box, CircularProgress } from "@mui/material";
 import {
   getAllDonationsByCategory,
   getAllCategoriesList,
-  getAllDonatorsList,
+  getAllDonatorsListByCategory,
 } from "utils/api";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -44,9 +44,11 @@ const CategoryBarChart = () => {
     }
   };
 
-  const fetchUsersList = async () => {
+  const fetchUsersList = async (categorySelection) => {
     try {
-      const donorsListResponse = await getAllDonatorsList();
+      const donorsListResponse = await getAllDonatorsListByCategory(
+        categorySelection
+      );
       const donorsListResponseData = await donorsListResponse.json();
       setDonatorList(donorsListResponseData);
     } catch (error) {
@@ -57,12 +59,13 @@ const CategoryBarChart = () => {
 
   useEffect(() => {
     fetchCategoriesList();
-    fetchUsersList();
+    fetchUsersList(categorySelection);
     fetchCategoryData(categorySelection);
   }, []);
 
   useEffect(() => {
     fetchCategoryData(categorySelection);
+    fetchUsersList(categorySelection);
   }, [categorySelection]);
 
   return (

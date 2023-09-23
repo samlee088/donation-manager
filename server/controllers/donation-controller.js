@@ -121,6 +121,28 @@ export const getAllDonatorsList = async (req, res) => {
   }
 };
 
+export const getAllDonatorsListByCategory = async (req, res) => {
+  try {
+    const donorCategory = req.params.categorySelection;
+
+    let donators = [];
+
+    if (donorCategory === "none") {
+      donators = await Donation.distinct("donorName");
+    } else {
+      donators = await Donation.distinct("donorName", {
+        donationCategory: donorCategory,
+      });
+    }
+
+    return res.status(200).json(donators);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get a list of all donators");
+    res.status(500).json(error);
+  }
+};
+
 export const Colors = ["#00A6FB", "#0582CA", "#006494", "#003554", "#051923"];
 
 export const getDonatorInformation = async (req, res) => {

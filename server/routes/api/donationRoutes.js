@@ -8,6 +8,7 @@ import {
   getDonatorInformation,
   getAllDonationsByCategory,
   getAllCategoriesList,
+  getAllDonatorsListByCategory,
 } from "../../controllers/donation-controller.js";
 
 const router = express.Router();
@@ -22,5 +23,8 @@ router
 router.route("/getAllDonatorsList").get(getAllDonatorsList);
 router.route("/getDonatorInformation/:donatorName").post(getDonatorInformation);
 router.route("/getAllCategoriesList").get(getAllCategoriesList);
+router
+  .route("/getAllDonatorsListByCategory/:categorySelection")
+  .post(getAllDonatorsListByCategory);
 
 export default router;
