@@ -127,10 +127,6 @@ export const getDonatorInformation = async (req, res) => {
   try {
     const donorName = req.params.donatorName;
 
-    console.log(donorName);
-
-    console.log("found request");
-
     let dataRetrieve = [];
     if (donorName === "none") {
       dataRetrieve = await Donation.find();
@@ -163,6 +159,55 @@ export const getDonatorInformation = async (req, res) => {
     console.log(pieChartData);
 
     return res.status(200).json(pieChartData);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get a list of all donators");
+    res.status(500).json(error);
+  }
+};
+
+export const getAllDonationsByCategory = async (req, res) => {
+  try {
+    let donationsData = await Donation.find();
+
+    let barGraphData = [];
+
+    let colorsReferenceIndex = 0;
+
+    donationsData.map((donation) => {
+      let category = donation.donationCategory;
+      let donatorName = donation.donorName;
+      let donationQuantity = donation.donationQuantity;
+      let existingData = barGraphData.find(
+        (data) => data.category === category
+      );
+
+      if (!existingData) {
+        let initial = {
+          category: category,
+          [`${donatorName}`]: donationQuantity,
+          [`${donatorName}Color`]: Colors[colorsReferenceIndex],
+        };
+
+        barGraphData.push(initial);
+      } else {
+        let donorIdentity = existingData.donatorName;
+
+        if (!donorIdentity) {
+          existingData[donatorName] = donationQuantity;
+          existingData[`${donatorName}Color`] = Colors[colorsReferenceIndex];
+        } else {
+          existingData[donatorName] =
+            existingData[donatorName] + donationQuantity;
+        }
+      }
+
+      colorsReferenceIndex = (colorsReferenceIndex + 1) % Colors.length;
+    });
+
+    console.log(barGraphData);
+
+    res.status(200).json(barGraphData);
   } catch (error) {
     console.log(error);
     console.log("can't get a list of all donators");

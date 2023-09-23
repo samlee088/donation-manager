@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import CategorySummary from 'components/CategorySummary'
+import CategoryCurrentInventory from 'components/CategoryCurrentInventory'
 import DonationDistributionInput from 'components/DonationDistributionInput'
 import DonationDistributionSummary from 'components/DonationDistributionSummary'
 import Title from 'components/Title'
@@ -40,7 +40,7 @@ const DonationsDistributions = () => {
         <Box sx={{mt: 10, textAlign: 'center'}}>
           <h3>Current Available Inventory by category</h3>
         </Box>
-        <CategorySummary forceRefresh={refreshCategorySummary} />
+        <CategoryCurrentInventory forceRefresh={refreshCategorySummary} />
         <Box sx={{mt: 10, textAlign: 'center'}}>
           <h3>List of all distribution transactions</h3>
         </Box>

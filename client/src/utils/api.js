@@ -73,3 +73,11 @@ export const getDonatorInformationCall = (donatorName) => {
     }
   );
 };
+
+export const getAllDonationsByCategory = () => {
+  return fetch(`${BASE_URL}/api/donations/getAllDonationsByCategory`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
