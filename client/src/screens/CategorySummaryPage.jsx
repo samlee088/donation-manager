@@ -4,14 +4,16 @@ import DonatorSummary from "components/DonatorSummary";
 import Title from "components/Title";
 import React from "react";
 import { Box } from "@mui/material";
+import DonationLifetimeCategorySummary from "components/DonationLifetimeCategorySummary";
 
 const CategorySummaryPage = () => {
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <Box>
       <Title title="Lifetime Donations by Category" />
+
       <CategoryBarChart />
+
+      <DonationLifetimeCategorySummary />
     </Box>
   );
 };

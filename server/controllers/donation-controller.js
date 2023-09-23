@@ -209,6 +209,7 @@ export const getAllDonationsByCategory = async (req, res) => {
       let category = donation.donationCategory;
       let donatorName = donation.donorName;
       let donationQuantity = donation.donationQuantity;
+
       let existingData = barGraphData.find(
         (data) => data.category === category
       );
@@ -222,14 +223,16 @@ export const getAllDonationsByCategory = async (req, res) => {
 
         barGraphData.push(initial);
       } else {
-        let donorIdentity = existingData.donatorName;
+        console.log(existingData);
+        let donorIdentity = existingData[donatorName];
+
+        console.log(donorIdentity);
 
         if (!donorIdentity) {
           existingData[donatorName] = donationQuantity;
           existingData[`${donatorName}Color`] = Colors[colorsReferenceIndex];
         } else {
-          existingData[donatorName] =
-            existingData[donatorName] + donationQuantity;
+          existingData[donatorName] += donationQuantity;
         }
       }
 
@@ -252,6 +255,43 @@ export const getAllCategoriesList = async (req, res) => {
   } catch (error) {
     console.log(error);
     console.log("can't get a list of all categories");
+    res.status(500).json(error);
+  }
+};
+
+export const getAllDonationsGroupedByCategory = async (req, res) => {
+  try {
+    let donations = await Donation.find();
+
+    let idProperty = 0;
+
+    let categorySum = donations.reduce((categorySums, donation) => {
+      let donationCategory = donation.donationCategory;
+      let donationQuantity = donation.donationQuantity;
+
+      let categoryFind = categorySums.find(
+        (category) => category.inventoryCategory === donationCategory
+      );
+
+      if (!categoryFind) {
+        idProperty += 1;
+        let initial = {
+          id: idProperty,
+          inventoryCategory: donationCategory,
+          inventoryValue: donationQuantity,
+        };
+        categorySums.push(initial);
+      } else {
+        categoryFind.inventoryValue += donationQuantity;
+      }
+
+      return categorySums; // This line was missing in your code
+    }, []);
+
+    return res.status(200).json(categorySum);
+  } catch (error) {
+    console.log(error);
+    console.log("can't get a list of all donations grouped by category");
     res.status(500).json(error);
   }
 };

@@ -107,3 +107,11 @@ export const getAllCategoriesList = () => {
     },
   });
 };
+
+export const getAllDonationsGroupedByCategory = () => {
+  return fetch(`${BASE_URL}/api/donations/getAllDonationsGroupedByCategory`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

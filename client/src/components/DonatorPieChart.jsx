@@ -68,11 +68,11 @@ const DonatorPieChart = () => {
       }}
     >
       <Box>
-        <InputLabel id="CategorySelectorLabel">Category</InputLabel>
+        <InputLabel id="DonatorSelectorLabel">Donator</InputLabel>
         <Select
-          labelId="donationCategoryLabel"
+          labelId="DonatorLabel"
           id="donationCategory"
-          label="Category"
+          label="Donator"
           value={donatorSelection}
           onChange={(e) => setDonatorSelection(e.target.value)}
           error={!donatorSelection}
