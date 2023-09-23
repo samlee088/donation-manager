@@ -17,6 +17,7 @@ const CategoryBarChart = () => {
   const [categorySelection, setCategorySelection] = useState("none");
   const [donatorList, setDonatorList] = useState([]);
 
+  /* API call to fetch graph data */
   let fetchCategoryData = async (categorySelection) => {
     try {
       let fetchCategoryResponse = await getAllDonationsByCategory(
@@ -33,6 +34,7 @@ const CategoryBarChart = () => {
     }
   };
 
+  /* API call to fetch list of categories available to be used for dropdown menu */
   const fetchCategoriesList = async () => {
     try {
       const categoryListResponse = await getAllCategoriesList();
@@ -44,6 +46,7 @@ const CategoryBarChart = () => {
     }
   };
 
+  /* API call to grab list of donators depending on which category selection, to be used for the legend of the bar graph */
   const fetchUsersList = async (categorySelection) => {
     try {
       const donorsListResponse = await getAllDonatorsListByCategory(
@@ -57,6 +60,7 @@ const CategoryBarChart = () => {
     }
   };
 
+  /* Fetch and render data upon first initial load, and also when a new category is selected */
   useEffect(() => {
     fetchCategoriesList();
     fetchUsersList(categorySelection);

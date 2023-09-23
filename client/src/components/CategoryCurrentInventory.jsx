@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Box, CircularProgress } from '@mui/material';
-import { getCurrentInventory } from 'utils/api';
-import { Colors } from 'constants/colors';
+import React, { useState, useEffect } from "react";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { Box, CircularProgress } from "@mui/material";
+import { getCurrentInventory } from "utils/api";
+import { Colors } from "constants/colors";
 
 const CategoryCurrentInventory = ({ forceRefresh }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
 
   const fetchData = async () => {
     try {
@@ -16,7 +15,7 @@ const CategoryCurrentInventory = ({ forceRefresh }) => {
       setData(inventoryData);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       setIsLoading(false);
     }
   };
@@ -24,11 +23,11 @@ const CategoryCurrentInventory = ({ forceRefresh }) => {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
+  /* This is used to refresh the data when a user submits a distribution */
   useEffect(() => {
     fetchData();
   }, [forceRefresh]);
-
 
   const columns = [
     {
@@ -55,26 +54,26 @@ const CategoryCurrentInventory = ({ forceRefresh }) => {
             sx={{
               "& .MuiDataGrid-root": {
                 border: "none",
-            },
-            "& .MuiDataGrid-cell": {
+              },
+              "& .MuiDataGrid-cell": {
                 borderBottom: "none",
-            },
-            "& .MuiDataGrid-columnHeaders": {
+              },
+              "& .MuiDataGrid-columnHeaders": {
                 backgroundColor: Colors.primary400,
                 color: Colors.primary50,
                 borderBottom: "none",
-            },
-            "& .MuiDataGrid-virtualScroller": {
+              },
+              "& .MuiDataGrid-virtualScroller": {
                 backgroundColor: Colors.primary50,
-            },
-            "& .MuiDataGrid-footerContainer": {
+              },
+              "& .MuiDataGrid-footerContainer": {
                 backgroundColor: Colors.primary100,
                 color: Colors.primary50,
                 borderTop: "none",
-            },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              },
+              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
                 color: `${Colors.primary400} !important`,
-            },
+              },
             }}
           >
             <DataGrid

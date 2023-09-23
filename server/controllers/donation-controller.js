@@ -12,19 +12,16 @@ export const addDonation = async (req, res) => {
       donationDate: req.body.donationDate,
     });
 
-    // Find the inventory item for the donation category
     let categoryInventory = await Inventory.findOne({
       inventoryCategory: newDonationRequestedCategory,
     });
 
     if (!categoryInventory) {
-      // If the inventory item doesn't exist, create it
       categoryInventory = await Inventory.create({
         inventoryCategory: newDonationRequestedCategory,
         inventoryValue: newDonationRequestedQuantity,
       });
     } else {
-      // If the inventory item exists, update its value
       categoryInventory.inventoryValue += newDonationRequestedQuantity;
       await categoryInventory.save();
     }
@@ -32,7 +29,6 @@ export const addDonation = async (req, res) => {
     return res.status(200).json(donation);
   } catch (error) {
     console.error(error);
-    console.log("error with adding donation");
     res.status(500).json(error);
   }
 };
@@ -43,26 +39,23 @@ export const getInventory = async (req, res) => {
 
     return res.status(200).json(inventory);
   } catch (error) {
-    console.log(error);
-    console.log("cant get current inventory");
+    console.error(error);
     res.status(500).json(error);
   }
 };
 
 export const getAllDonations = async (req, res) => {
+  //Used to get all donations and render on data grid
   try {
-    const donations = await Donation.find(); // Fetch your donation data
+    const donations = await Donation.find();
 
-    // Initialize an array to hold the transformed data
     const transformedData = [];
 
-    // Iterate through each donation
     donations.forEach((donation) => {
       const donator = donation.donorName;
       const donationCategory = donation.donationCategory;
       const donationQuantity = donation.donationQuantity;
 
-      // Find or create a row for the donator in the transformed data
       let donatorRow = transformedData.find((row) => row.Donator === donator);
 
       if (!donatorRow) {
@@ -76,7 +69,6 @@ export const getAllDonations = async (req, res) => {
         transformedData.push(donatorRow);
       }
 
-      // Update the quantity in the corresponding category column
       if (donationCategory === "Clothing") {
         donatorRow.Clothing += donationQuantity;
       } else if (donationCategory === "Money") {
@@ -88,41 +80,40 @@ export const getAllDonations = async (req, res) => {
       }
     });
 
-    // Return the transformed data, not scrubbedDonations
     return res.status(200).json(transformedData);
   } catch (error) {
-    console.log(error);
-    console.log("can't get all donations");
+    console.error(error);
     res.status(500).json(error);
   }
 };
 
 export const getAllDonationTransactions = async (req, res) => {
   try {
+    //Find and return all donation transactions
     const donations = await Donation.find();
 
     return res.status(200).json(donations);
   } catch (error) {
-    console.log(error);
-    console.log("can't get all donations transactions");
+    console.error(error);
     res.status(500).json(error);
   }
 };
 
 export const getAllDonatorsList = async (req, res) => {
   try {
+    //Unique values for all donators
     const donators = await Donation.distinct("donorName");
 
     return res.status(200).json(donators);
   } catch (error) {
-    console.log(error);
-    console.log("can't get a list of all donators");
+    console.error(error);
     res.status(500).json(error);
   }
 };
 
 export const getAllDonatorsListByCategory = async (req, res) => {
   try {
+    //Used for category bar graph legend key
     const donorCategory = req.params.categorySelection;
 
     let donators = [];
@@ -137,8 +128,7 @@ export const getAllDonatorsListByCategory = async (req, res) => {
 
     return res.status(200).json(donators);
   } catch (error) {
-    console.log(error);
-    console.log("can't get a list of all donators");
+    console.error(error);
     res.status(500).json(error);
   }
 };
@@ -147,6 +137,7 @@ export const Colors = ["#00A6FB", "#0582CA", "#006494", "#003554", "#051923"];
 
 export const getDonatorInformation = async (req, res) => {
   try {
+    //API call used for pie chart data.
     const donorName = req.params.donatorName;
 
     let dataRetrieve = [];
@@ -158,6 +149,8 @@ export const getDonatorInformation = async (req, res) => {
 
     let pieChartData = [];
     let colorsReferenceIndex = 0;
+
+    //Once the data is found for all donators, or particular donor, map the data points needed for Nivo pie chart
 
     dataRetrieve.map((donation) => {
       let category = donation.donationCategory;
@@ -178,12 +171,9 @@ export const getDonatorInformation = async (req, res) => {
       colorsReferenceIndex = (colorsReferenceIndex + 1) % Colors.length;
     });
 
-    console.log(pieChartData);
-
     return res.status(200).json(pieChartData);
   } catch (error) {
-    console.log(error);
-    console.log("can't get a list of all donators");
+    console.error(error);
     res.status(500).json(error);
   }
 };
@@ -192,8 +182,8 @@ export const getAllDonationsByCategory = async (req, res) => {
   try {
     const donationCategory = req.params.categorySelection;
 
-    console.log(donationCategory);
-
+    //Used for category summary bar graph
+    //Retrieve all data points by category
     let donationsData = [];
     if (donationCategory === "none") {
       donationsData = await Donation.find();
@@ -205,6 +195,7 @@ export const getAllDonationsByCategory = async (req, res) => {
 
     let colorsReferenceIndex = 0;
 
+    //map the data for Nivo bar graph format
     donationsData.map((donation) => {
       let category = donation.donationCategory;
       let donatorName = donation.donorName;
@@ -223,10 +214,7 @@ export const getAllDonationsByCategory = async (req, res) => {
 
         barGraphData.push(initial);
       } else {
-        console.log(existingData);
         let donorIdentity = existingData[donatorName];
-
-        console.log(donorIdentity);
 
         if (!donorIdentity) {
           existingData[donatorName] = donationQuantity;
@@ -241,25 +229,25 @@ export const getAllDonationsByCategory = async (req, res) => {
 
     res.status(200).json(barGraphData);
   } catch (error) {
-    console.log(error);
-    console.log("can't get a list of all donators");
+    console.error(error);
     res.status(500).json(error);
   }
 };
 
 export const getAllCategoriesList = async (req, res) => {
+  //Used for dropdown for category selection in category summary bar graph
   try {
     const categories = await Donation.distinct("donationCategory");
 
     res.status(200).json(categories);
   } catch (error) {
-    console.log(error);
-    console.log("can't get a list of all categories");
+    console.error(error);
     res.status(500).json(error);
   }
 };
 
 export const getAllDonationsGroupedByCategory = async (req, res) => {
+  //Used to get all lifetime donations and sum by category
   try {
     let donations = await Donation.find();
 
@@ -285,13 +273,12 @@ export const getAllDonationsGroupedByCategory = async (req, res) => {
         categoryFind.inventoryValue += donationQuantity;
       }
 
-      return categorySums; // This line was missing in your code
+      return categorySums;
     }, []);
 
     return res.status(200).json(categorySum);
   } catch (error) {
-    console.log(error);
-    console.log("can't get a list of all donations grouped by category");
+    console.error(error);
     res.status(500).json(error);
   }
 };

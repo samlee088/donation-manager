@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Box, CircularProgress } from '@mui/material';
-import { getAllDonationTransactions } from 'utils/api';
-import { Colors } from 'constants/colors';
+import React, { useState, useEffect } from "react";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { Box, CircularProgress } from "@mui/material";
+import { getAllDonationTransactions } from "utils/api";
+import { Colors } from "constants/colors";
 
-
-const DonationRegistrationSummary = ( { forceRefresh }) => {
-    const [data, setData] = useState([]);
+const DonationRegistrationSummary = ({ forceRefresh }) => {
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
 
   const fetchData = async () => {
     try {
       const response = await getAllDonationTransactions();
       const donationsData = await response.json();
-   
+
       const dataWithIds = donationsData.map((row, index) => ({
         ...row,
-        id: index + 1, 
-        donationDate : row.donationDate.substring(0,10),
+        id: index + 1,
+        donationDate: row.donationDate.substring(0, 10),
       }));
 
       setData(dataWithIds);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       setIsLoading(false);
     }
   };
@@ -32,11 +30,10 @@ const DonationRegistrationSummary = ( { forceRefresh }) => {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   useEffect(() => {
     fetchData();
   }, [forceRefresh]);
-
 
   const columns = [
     {
@@ -50,14 +47,14 @@ const DonationRegistrationSummary = ( { forceRefresh }) => {
       flex: 1.0,
     },
     {
-        field: "donationQuantity",
-        headerName: "Quantity",
-        flex: 1.0,
+      field: "donationQuantity",
+      headerName: "Quantity",
+      flex: 1.0,
     },
     {
-    field: "donationDate",
-    headerName: "Date",
-    flex: 1.0,
+      field: "donationDate",
+      headerName: "Date",
+      flex: 1.0,
     },
   ];
 
@@ -73,26 +70,26 @@ const DonationRegistrationSummary = ( { forceRefresh }) => {
             sx={{
               "& .MuiDataGrid-root": {
                 border: "none",
-            },
-            "& .MuiDataGrid-cell": {
+              },
+              "& .MuiDataGrid-cell": {
                 borderBottom: "none",
-            },
-            "& .MuiDataGrid-columnHeaders": {
+              },
+              "& .MuiDataGrid-columnHeaders": {
                 backgroundColor: Colors.primary400,
                 color: Colors.primary50,
                 borderBottom: "none",
-            },
-            "& .MuiDataGrid-virtualScroller": {
+              },
+              "& .MuiDataGrid-virtualScroller": {
                 backgroundColor: Colors.primary50,
-            },
-            "& .MuiDataGrid-footerContainer": {
+              },
+              "& .MuiDataGrid-footerContainer": {
                 backgroundColor: Colors.primary100,
                 color: Colors.primary50,
                 borderTop: "none",
-            },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              },
+              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
                 color: `${Colors.primary400} !important`,
-            },
+              },
             }}
           >
             <DataGrid
@@ -108,6 +105,6 @@ const DonationRegistrationSummary = ( { forceRefresh }) => {
       </Box>
     </div>
   );
-}
+};
 
-export default DonationRegistrationSummary
+export default DonationRegistrationSummary;
